@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>The Psychic Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+</head>
+<h1>The Psychic Game</h1>
+
+<p>Guess what letter I'm Thinking</p>
+<p id="wins">Wins: 0</p>
+<p id="losses">Losses: 0</p>
+<p id="guessLeft">Guesses left: 9</p>
+<p id="yourGuess" >You Guesses so far :</p>
+
+
+<body>
+<script>
+
+// Function generate random letter
+var possibleLetter="abcdefghijklmnopqrstuvwxyz";
+var randomChar;
+var letterToGuess;
+var yourInput="";
+var index=0;
+
+
+// initialization of values 
+var guess=9;
+var losses=0;
+var wins=0;
+var guessSoFar="";
+
+
+function createRandom() {
+    index=Math.floor(Math.random()*possibleLetter.length);
+    return randomChar= possibleLetter.charAt(index); 
+} 
+
+
+letterToGuess=createRandom(); 
+//alert("randomchar is  "+ randomChar + " index= "+index);
+
+
+//=======================================================================
+
+// Event Listening
+
+    document.addEventListener('keypress', (event) => {
+    var keyName = event.key;
+    //alert('keypress event\n\n' + 'key: ' + keyName);
+
+    if (keyName===randomChar)
+    { 
+        //alert("you win ");
+        wins++;
+        document.getElementById("wins").innerHTML="Wins: "+wins;
+        letterToGuess=createRandom();
+        //alert("new randomchar is  "+ randomChar + " index= "+index);
+        
+        //reset Guess entered
+        guess=9;
+        document.getElementById("guessLeft").innerHTML="Guesses left: "+guess;
+        yourInput="";
+        document.getElementById("yourGuess").innerHTML="You Guesses so far : "+yourInput;    
+    
+    }
+
+    else
+    {   guess--; 
+        document.getElementById("guessLeft").innerHTML="Guesses left: "+guess;
+        
+        if (guess<=0)
+        {
+            //alert("you lose!!!");
+            losses++;
+            document.getElementById("losses").innerHTML="Losses: "+losses;
+            letterToGuess=createRandom();
+            //alert("new randomchar is  "+ randomChar + " index= "+index);
+        
+            //reset Guess entered
+            guess=9;
+            document.getElementById("guessLeft").innerHTML="Guesses left: "+guess;
+            yourInput="";
+            document.getElementById("yourGuess").innerHTML="You Guesses so far : "+yourInput; 
+
+        }       
+        yourInput+=keyName;  
+        //alert ("input : "+yourInput);
+        document.getElementById("yourGuess").innerHTML="You Guesses so far : "+yourInput;
+        yourInput=yourInput+",";
+    }
+
+    
+    
+  
+  
+  
+
+});
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+    
+</body>
+</html>
